@@ -1,7 +1,12 @@
 aid: tenet-healthcare
-url: https://raw.githubusercontent.com/api-evangelist/tenet-healthcare/refs/heads/main/apis.yml
+url: 
+  https://raw.githubusercontent.com/api-evangelist/tenet-healthcare/refs/heads/main/apis.yml
 modified: '2026-03-21'
 apis: []
 common:
   - type: Website
     url: https://www.tenet-healthcare.com
+description: >-
+  Tenet Healthcare is a diversified healthcare services company operating regionally
+  focused, integrated healthcare delivery networks with acute care hospitals, ambulatory
+  surgery centers, and revenue cycle management services.
