@@ -1,0 +1,104 @@
+name: Tenet Healthcare Vocabulary
+description: Domain vocabulary and taxonomy for Tenet Healthcare covering clinical operations, FHIR healthcare standards, revenue cycle management, hospital administration, and ambulatory surgical services.
+version: "1.0.0"
+created: "2026-05-03"
+modified: "2026-05-03"
+
+domains:
+  - name: Organization
+    description: Tenet Healthcare organizational structure and subsidiaries
+    terms:
+      - term: Tenet Health
+        definition: The hospital operations division of Tenet Healthcare Corporation, operating acute care hospitals across the United States. Brand under which patient-facing hospital services are marketed.
+        tags: [Organization, Hospitals]
+
+      - term: USPI
+        definition: United Surgical Partners International — Tenet Healthcare's ambulatory surgery center and surgical hospital division. Operates more than 600 facilities across the US in partnership with physicians and health systems.
+        abbreviation: USPI
+        synonyms: [United Surgical Partners International]
+        tags: [Organization, Ambulatory Surgery]
+
+      - term: Conifer Health Solutions
+        definition: Tenet Healthcare's revenue cycle management subsidiary providing outsourced RCM services to hospitals and health systems including patient access, coding, billing, and collections.
+        tags: [Organization, Revenue Cycle Management]
+
+  - name: Clinical
+    description: Clinical healthcare concepts and FHIR resource types
+    terms:
+      - term: FHIR
+        definition: Fast Healthcare Interoperability Resources — HL7's standard for healthcare data exchange using modern web technologies. FHIR R4 is the current stable version used by Tenet Health APIs.
+        abbreviation: FHIR
+        synonyms: [Fast Healthcare Interoperability Resources, HL7 FHIR]
+        tags: [Healthcare Standards, Interoperability]
+
+      - term: SMART on FHIR
+        definition: Substitutable Medical Apps, Reusable Technologies — an authorization framework built on OAuth 2.0 and OpenID Connect for secure access to healthcare applications and patient data via FHIR APIs.
+        abbreviation: SMART
+        tags: [Healthcare Standards, Authorization]
+
+      - term: Patient
+        definition: An individual receiving or registered to receive healthcare services. In FHIR, the Patient resource stores demographic, administrative, and contact information.
+        tags: [Clinical, FHIR Resource]
+
+      - term: Appointment
+        definition: A scheduled encounter between a patient and a healthcare provider at a specific time and location. In FHIR, the Appointment resource tracks status, participants, and timing.
+        tags: [Clinical, FHIR Resource, Scheduling]
+
+      - term: Observation
+        definition: A measurement, assessment, or finding recorded about a patient. Includes vital signs (blood pressure, heart rate), laboratory results, imaging findings, and clinical assessments.
+        synonyms: [Clinical Finding, Vital Signs, Lab Result]
+        tags: [Clinical, FHIR Resource]
+
+      - term: Condition
+        definition: A clinical condition, problem, or diagnosis associated with a patient. Recorded using ICD-10 diagnostic codes and categorized by clinical status (active, resolved, inactive).
+        synonyms: [Diagnosis, Problem, Health Concern]
+        tags: [Clinical, FHIR Resource]
+
+      - term: MedicationRequest
+        definition: A request for supply and instructions for administration of a medication to a patient. Also known as a prescription. Includes drug name, dose, frequency, and prescriber information.
+        synonyms: [Prescription, Medication Order]
+        tags: [Clinical, FHIR Resource, Medications]
+
+      - term: DocumentReference
+        definition: A reference to a clinical document such as a discharge summary, operative note, radiology report, or clinical note. Contains document metadata and retrieval information.
+        synonyms: [Clinical Note, Discharge Summary, Clinical Document]
+        tags: [Clinical, FHIR Resource, Documentation]
+
+  - name: Revenue Cycle Management
+    description: Healthcare billing and revenue cycle terminology
+    terms:
+      - term: Revenue Cycle Management
+        definition: The financial process healthcare organizations use to track patient care episodes from registration and appointment scheduling through final payment. Includes charge capture, coding, claims submission, denial management, and collections.
+        abbreviation: RCM
+        tags: [Revenue Cycle Management, Finance]
+
+      - term: Patient Access
+        definition: The front-end revenue cycle functions including patient registration, insurance eligibility verification, prior authorizations, and financial counseling that occur before and at the time of service.
+        tags: [Revenue Cycle Management, Patient Access]
+
+      - term: Health Information Management
+        definition: The practice of acquiring, analyzing, and protecting digital and traditional medical information vital to providing quality patient care. Includes medical coding and clinical documentation improvement.
+        abbreviation: HIM
+        tags: [Revenue Cycle Management, Documentation]
+
+      - term: Clinical Revenue Integrity
+        definition: The intersection of clinical documentation and billing compliance, ensuring that services rendered are accurately documented, coded, and billed. Conifer Health Solutions' core service offering.
+        tags: [Revenue Cycle Management, Compliance]
+
+  - name: Facilities
+    description: Types of healthcare facilities operated by Tenet Healthcare
+    terms:
+      - term: Acute Care Hospital
+        definition: A hospital providing inpatient care for patients with severe or sudden illness or injury requiring short-term, intensive medical attention. Tenet Health operates more than 60 acute care hospitals.
+        synonyms: [Hospital, Acute Care Facility]
+        tags: [Facilities, Hospitals]
+
+      - term: Ambulatory Surgery Center
+        definition: A healthcare facility specializing in elective outpatient surgical procedures that do not require an overnight hospital stay. USPI operates ASCs focused on orthopedics, ophthalmology, gastroenterology, and other specialties.
+        abbreviation: ASC
+        synonyms: [Outpatient Surgery Center, Day Surgery Center]
+        tags: [Facilities, Ambulatory Surgery]
+
+      - term: Surgical Hospital
+        definition: A specialized facility focused on surgical services, typically operating under a joint venture between hospital operators and physician groups. A category within the USPI portfolio.
+        tags: [Facilities, Ambulatory Surgery]

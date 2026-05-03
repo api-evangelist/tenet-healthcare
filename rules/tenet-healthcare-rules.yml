@@ -1,0 +1,102 @@
+extends: spectral:oas
+rules:
+
+  # FHIR APIs require SMART on FHIR security
+  tenet-smart-on-fhir-required:
+    description: All Tenet FHIR API operations must use SMART on FHIR OAuth 2.0
+    message: "Operation '{{operationId}}' should reference SMART on FHIR security scheme"
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: security
+      function: truthy
+
+  # Enforce operation IDs
+  tenet-operation-id-required:
+    description: All operations must have an operationId
+    message: "Operation is missing operationId"
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: operationId
+      function: truthy
+
+  # Enforce camelCase operation IDs
+  tenet-operation-id-camel-case:
+    description: OperationIds must use camelCase
+    message: "operationId '{{value}}' should use camelCase"
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].operationId"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]+$"
+
+  # Enforce Title Case summaries
+  tenet-summary-title-case:
+    description: Operation summaries must use Title Case
+    message: "Summary '{{value}}' should use Title Case"
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].summary"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z][a-zA-Z0-9 ]+$"
+
+  # FHIR responses should use application/fhir+json
+  tenet-fhir-content-type:
+    description: FHIR API responses should use application/fhir+json content type
+    message: "FHIR response should use application/fhir+json content type"
+    severity: info
+    given: "$.paths[*][get].responses[200].content"
+    then:
+      field: "application/fhir+json"
+      function: truthy
+
+  # Patient paths should have ID parameter
+  tenet-patient-id-param:
+    description: Patient resource paths should define the id path parameter
+    message: "Patient path should define the id parameter"
+    severity: warn
+    given: "$.paths[*~'/Patient/{id}'][get].parameters"
+    then:
+      function: truthy
+
+  # FHIR Bundle responses for search results
+  tenet-fhir-bundle-response:
+    description: Search operations should return FHIR Bundle resources
+    message: "Search operation should return FHIR Bundle"
+    severity: info
+    given: "$.paths[*][get].responses[200].content.application/fhir+json.schema"
+    then:
+      function: truthy
+
+  # Server URLs required
+  tenet-server-urls-required:
+    description: API spec must define server URLs
+    message: "API spec is missing server definitions"
+    severity: error
+    given: "$"
+    then:
+      field: servers
+      function: truthy
+
+  # FHIR version documentation
+  tenet-fhir-version-info:
+    description: FHIR API specs should declare the FHIR version
+    message: "API spec should document FHIR version in info.version or description"
+    severity: info
+    given: "$.info"
+    then:
+      field: version
+      function: truthy
+
+  # 401 response required
+  tenet-unauthorized-response:
+    description: FHIR operations must define 401 Unauthorized response
+    message: "Operation should define 401 Unauthorized response for SMART on FHIR failures"
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].responses"
+    then:
+      field: "401"
+      function: truthy

@@ -1,0 +1,68 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "fhir": "https://hl7.org/fhir/R4/",
+    "snomed": "http://snomed.info/sct/",
+    "loinc": "http://loinc.org/",
+    "tenet": "https://api-evangelist.com/providers/tenet-healthcare/",
+    "name": "schema:name",
+    "description": "schema:description",
+    "url": "schema:url",
+    "MedicalOrganization": "schema:MedicalOrganization",
+    "Hospital": "schema:Hospital",
+    "Patient": {
+      "@id": "schema:Patient",
+      "@type": "schema:Person"
+    },
+    "MedicalAppointment": "schema:MedicalAppointment",
+    "MedicalCondition": "schema:MedicalCondition",
+    "Drug": "schema:Drug",
+    "patient": {
+      "@id": "fhir:Patient",
+      "@type": "@id"
+    },
+    "appointment": {
+      "@id": "fhir:Appointment",
+      "@type": "@id"
+    },
+    "observation": {
+      "@id": "fhir:Observation",
+      "@type": "@id"
+    },
+    "condition": {
+      "@id": "fhir:Condition",
+      "@type": "@id"
+    },
+    "medicationRequest": {
+      "@id": "fhir:MedicationRequest",
+      "@type": "@id"
+    },
+    "patientId": {
+      "@id": "schema:identifier",
+      "@type": "schema:Text"
+    },
+    "birthDate": {
+      "@id": "schema:birthDate",
+      "@type": "schema:Date"
+    },
+    "gender": {
+      "@id": "schema:gender",
+      "@type": "schema:Text"
+    },
+    "appointmentDate": {
+      "@id": "schema:startDate",
+      "@type": "schema:DateTime"
+    },
+    "provider": {
+      "@id": "schema:provider",
+      "@type": "@id"
+    },
+    "location": {
+      "@id": "schema:location",
+      "@type": "@id"
+    },
+    "Tags": "schema:keywords",
+    "Documentation": "schema:documentation"
+  }
+}

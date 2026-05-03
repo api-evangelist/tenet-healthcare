@@ -1,0 +1,88 @@
+{
+  "name": "Tenet Healthcare Patient",
+  "description": "Structure documentation for Tenet Healthcare patient record (FHIR R4 Patient)",
+  "fhirResource": "Patient",
+  "fhirVersion": "R4",
+  "fields": [
+    {
+      "name": "resourceType",
+      "type": "string",
+      "required": true,
+      "description": "FHIR resource type identifier",
+      "example": "Patient"
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "description": "Logical FHIR resource identifier",
+      "example": "patient-123456"
+    },
+    {
+      "name": "identifier",
+      "type": "array",
+      "required": false,
+      "description": "Business identifiers such as MRN, insurance ID",
+      "items": {
+        "name": "Identifier",
+        "fields": [
+          {"name": "system", "type": "string", "required": false, "description": "Identifier namespace URI"},
+          {"name": "value", "type": "string", "required": true, "description": "Identifier value"},
+          {"name": "use", "type": "string", "required": false, "description": "usual | official | temp | secondary"}
+        ]
+      }
+    },
+    {
+      "name": "name",
+      "type": "array",
+      "required": false,
+      "description": "Patient name(s) with family, given, prefix, suffix",
+      "items": {
+        "name": "HumanName",
+        "fields": [
+          {"name": "use", "type": "string", "required": false, "description": "official | usual | nickname"},
+          {"name": "family", "type": "string", "required": false, "description": "Family (last) name", "example": "Smith"},
+          {"name": "given", "type": "array", "required": false, "description": "Given (first) name(s)", "example": ["John"]}
+        ]
+      }
+    },
+    {
+      "name": "birthDate",
+      "type": "string",
+      "format": "date",
+      "required": false,
+      "description": "Patient date of birth",
+      "example": "1975-04-15"
+    },
+    {
+      "name": "gender",
+      "type": "string",
+      "required": false,
+      "description": "Administrative gender",
+      "enum": ["male", "female", "other", "unknown"],
+      "example": "male"
+    },
+    {
+      "name": "telecom",
+      "type": "array",
+      "required": false,
+      "description": "Contact details (phone, email, etc.)"
+    },
+    {
+      "name": "address",
+      "type": "array",
+      "required": false,
+      "description": "Patient mailing and home addresses"
+    },
+    {
+      "name": "managingOrganization",
+      "type": "object",
+      "required": false,
+      "description": "Reference to the organization managing this patient record",
+      "fields": [
+        {"name": "reference", "type": "string", "required": false, "description": "FHIR reference", "example": "Organization/tenet-dallas"},
+        {"name": "display", "type": "string", "required": false, "description": "Organization display name"}
+      ]
+    }
+  ]
+}

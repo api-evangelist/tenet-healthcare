@@ -1,0 +1,408 @@
+openapi: 3.1.0
+info:
+  title: Tenet Healthcare FHIR R4 Patient API
+  description: >-
+    HL7 FHIR R4 compliant patient API for Tenet Health hospital network enabling
+    access to patient demographics, appointments, clinical observations, conditions,
+    medications, allergies, care plans, and document references. Supports patient
+    portal integration, care team communication, and interoperability with electronic
+    health record systems. Implements SMART on FHIR for secure authorization.
+  version: 'R4'
+  contact:
+    name: Tenet Health Digital Health
+    url: https://www.tenethealth.com/patients
+  license:
+    name: HL7 FHIR Standard
+    url: https://hl7.org/fhir/R4/license.html
+externalDocs:
+  description: HL7 FHIR R4 Documentation
+  url: https://hl7.org/fhir/R4/
+servers:
+  - url: https://api.tenethealth.com/fhir/r4
+    description: Tenet Health FHIR R4 - Production
+  - url: https://sandbox.tenethealth.com/fhir/r4
+    description: Tenet Health FHIR R4 - Sandbox
+security:
+  - smartOnFhir: [patient/Patient.read, patient/Appointment.read, patient/Observation.read]
+tags:
+  - name: Patients
+    description: Patient demographic and administrative information (FHIR Patient resource)
+  - name: Appointments
+    description: Healthcare appointment scheduling and management (FHIR Appointment resource)
+  - name: Observations
+    description: Clinical observations including vital signs, lab results, and assessments (FHIR Observation resource)
+  - name: Conditions
+    description: Patient diagnoses, problems, and health concerns (FHIR Condition resource)
+  - name: Medications
+    description: Medication prescriptions and administration records (FHIR MedicationRequest resource)
+  - name: Documents
+    description: Clinical document references and summaries (FHIR DocumentReference resource)
+paths:
+  /Patient/{id}:
+    get:
+      operationId: getPatient
+      summary: Get Patient
+      description: >-
+        Retrieve a FHIR Patient resource by patient identifier. Returns patient
+        demographic information including name, date of birth, gender, contact
+        information, and insurance details.
+      tags:
+        - Patients
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Patient FHIR resource ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Patient resource returned
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/Patient'
+        '401':
+          description: Unauthorized - invalid SMART on FHIR token
+        '403':
+          description: Forbidden - insufficient scope
+        '404':
+          description: Patient not found
+
+  /Patient/{id}/Appointment:
+    get:
+      operationId: listPatientAppointments
+      summary: List Patient Appointments
+      description: >-
+        Retrieve all appointments for a specific patient including scheduled,
+        pending, and completed appointments. Returns appointment date, time,
+        provider, location, and appointment type.
+      tags:
+        - Appointments
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Patient FHIR resource ID
+          schema:
+            type: string
+        - name: date
+          in: query
+          required: false
+          description: Filter appointments by date (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+        - name: status
+          in: query
+          required: false
+          description: Filter by appointment status
+          schema:
+            type: string
+            enum: [booked, pending, arrived, fulfilled, cancelled, noshow]
+      responses:
+        '200':
+          description: Patient appointments returned as FHIR Bundle
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/Bundle'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Patient not found
+
+  /Appointment:
+    get:
+      operationId: searchAppointments
+      summary: Search Appointments
+      description: >-
+        Search for appointments using FHIR search parameters. Supports filtering
+        by patient, date range, practitioner, location, and appointment type.
+      tags:
+        - Appointments
+      parameters:
+        - name: patient
+          in: query
+          required: false
+          description: Patient reference (e.g., Patient/12345)
+          schema:
+            type: string
+        - name: date
+          in: query
+          required: false
+          description: Appointment date filter
+          schema:
+            type: string
+        - name: status
+          in: query
+          required: false
+          description: Appointment status filter
+          schema:
+            type: string
+        - name: _count
+          in: query
+          required: false
+          description: Maximum results per page
+          schema:
+            type: integer
+            default: 20
+      responses:
+        '200':
+          description: Appointment search results as FHIR Bundle
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/Bundle'
+        '400':
+          description: Invalid search parameters
+
+  /Patient/{id}/Observation:
+    get:
+      operationId: listPatientObservations
+      summary: List Patient Observations
+      description: >-
+        Retrieve clinical observations for a patient including vital signs,
+        laboratory results, imaging results, and clinical assessments. Supports
+        filtering by observation category and date range.
+      tags:
+        - Observations
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Patient FHIR resource ID
+          schema:
+            type: string
+        - name: category
+          in: query
+          required: false
+          description: Observation category (vital-signs, laboratory, imaging, survey)
+          schema:
+            type: string
+        - name: date
+          in: query
+          required: false
+          description: Date range filter
+          schema:
+            type: string
+        - name: _count
+          in: query
+          required: false
+          description: Maximum results per page
+          schema:
+            type: integer
+            default: 20
+      responses:
+        '200':
+          description: Patient observations as FHIR Bundle
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/Bundle'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Patient not found
+
+  /Patient/{id}/Condition:
+    get:
+      operationId: listPatientConditions
+      summary: List Patient Conditions
+      description: >-
+        Retrieve active and historical conditions (diagnoses, problems, and health
+        concerns) for a patient in FHIR Condition format with ICD-10 coding.
+      tags:
+        - Conditions
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Patient FHIR resource ID
+          schema:
+            type: string
+        - name: clinical-status
+          in: query
+          required: false
+          description: Condition status (active, resolved, inactive)
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Patient conditions as FHIR Bundle
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/Bundle'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Patient not found
+
+  /Patient/{id}/MedicationRequest:
+    get:
+      operationId: listPatientMedications
+      summary: List Patient Medications
+      description: >-
+        Retrieve medication requests (prescriptions) for a patient with drug name,
+        dosage, frequency, prescriber, and prescription status.
+      tags:
+        - Medications
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Patient FHIR resource ID
+          schema:
+            type: string
+        - name: status
+          in: query
+          required: false
+          description: Medication request status (active, completed, cancelled)
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Medication requests as FHIR Bundle
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/Bundle'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Patient not found
+
+  /Patient/{id}/DocumentReference:
+    get:
+      operationId: listPatientDocuments
+      summary: List Patient Documents
+      description: >-
+        Retrieve document references for a patient including clinical notes,
+        discharge summaries, radiology reports, and consent documents. Returns
+        document metadata and retrieval links.
+      tags:
+        - Documents
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Patient FHIR resource ID
+          schema:
+            type: string
+        - name: type
+          in: query
+          required: false
+          description: Document type LOINC code
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Document references as FHIR Bundle
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/Bundle'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Patient not found
+
+components:
+  securitySchemes:
+    smartOnFhir:
+      type: oauth2
+      description: SMART on FHIR OAuth 2.0 authorization
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.tenethealth.com/oauth2/authorize
+          tokenUrl: https://auth.tenethealth.com/oauth2/token
+          scopes:
+            'patient/Patient.read': Read patient demographic data
+            'patient/Appointment.read': Read patient appointments
+            'patient/Observation.read': Read clinical observations
+            'patient/Condition.read': Read patient conditions
+            'patient/MedicationRequest.read': Read medication requests
+            'patient/DocumentReference.read': Read document references
+
+  schemas:
+    Patient:
+      type: object
+      description: FHIR R4 Patient resource
+      properties:
+        resourceType:
+          type: string
+          enum: [Patient]
+        id:
+          type: string
+          description: FHIR resource ID
+        meta:
+          type: object
+          description: Resource metadata
+        name:
+          type: array
+          description: Patient names (legal, preferred, etc.)
+          items:
+            type: object
+            properties:
+              use:
+                type: string
+              family:
+                type: string
+              given:
+                type: array
+                items:
+                  type: string
+        birthDate:
+          type: string
+          format: date
+          description: Patient date of birth
+        gender:
+          type: string
+          enum: [male, female, other, unknown]
+        telecom:
+          type: array
+          description: Contact information
+          items:
+            type: object
+        address:
+          type: array
+          description: Patient addresses
+          items:
+            type: object
+
+    Bundle:
+      type: object
+      description: FHIR R4 Bundle resource containing search results
+      properties:
+        resourceType:
+          type: string
+          enum: [Bundle]
+        type:
+          type: string
+          enum: [searchset, collection]
+        total:
+          type: integer
+          description: Total matching resources
+        link:
+          type: array
+          description: Pagination links
+          items:
+            type: object
+            properties:
+              relation:
+                type: string
+              url:
+                type: string
+        entry:
+          type: array
+          description: Bundle entries
+          items:
+            type: object
+            properties:
+              fullUrl:
+                type: string
+              resource:
+                type: object
+              search:
+                type: object

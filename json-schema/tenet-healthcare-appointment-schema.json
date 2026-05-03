@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.com/schemas/tenet-healthcare/appointment.json",
+  "title": "Tenet Healthcare Appointment",
+  "description": "Schema for a Tenet Healthcare appointment based on HL7 FHIR R4 Appointment resource",
+  "type": "object",
+  "required": ["resourceType", "id", "status"],
+  "properties": {
+    "resourceType": {
+      "type": "string",
+      "const": "Appointment"
+    },
+    "id": {
+      "type": "string",
+      "description": "FHIR resource identifier",
+      "example": "appt-789012"
+    },
+    "status": {
+      "type": "string",
+      "description": "Appointment status",
+      "enum": ["proposed", "pending", "booked", "arrived", "fulfilled", "cancelled", "noshow", "entered-in-error", "checked-in"],
+      "example": "booked"
+    },
+    "appointmentType": {
+      "type": "object",
+      "description": "Type of appointment",
+      "properties": {
+        "coding": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "system": {"type": "string"},
+              "code": {"type": "string"},
+              "display": {"type": "string", "example": "Follow-up Visit"}
+            }
+          }
+        }
+      }
+    },
+    "serviceType": {
+      "type": "array",
+      "description": "Type of service being delivered",
+      "items": {
+        "type": "object",
+        "properties": {
+          "coding": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "system": {"type": "string"},
+                "code": {"type": "string"},
+                "display": {"type": "string"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "specialty": {
+      "type": "array",
+      "description": "Clinical specialty of the appointment",
+      "items": {
+        "type": "object",
+        "properties": {
+          "coding": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {"type": "string"},
+                "display": {"type": "string", "example": "Cardiology"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "reasonReference": {
+      "type": "array",
+      "description": "References to Condition or Procedure motivating the appointment",
+      "items": {
+        "type": "object",
+        "properties": {
+          "reference": {"type": "string"}
+        }
+      }
+    },
+    "start": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Appointment start date-time",
+      "example": "2026-05-15T14:00:00Z"
+    },
+    "end": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Appointment end date-time",
+      "example": "2026-05-15T14:30:00Z"
+    },
+    "minutesDuration": {
+      "type": "integer",
+      "description": "Appointment duration in minutes",
+      "example": 30
+    },
+    "participant": {
+      "type": "array",
+      "description": "Appointment participants (patient, practitioner, location)",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "array",
+            "items": {"type": "object"}
+          },
+          "actor": {
+            "type": "object",
+            "properties": {
+              "reference": {"type": "string"},
+              "display": {"type": "string"}
+            }
+          },
+          "status": {
+            "type": "string",
+            "enum": ["accepted", "declined", "tentative", "needs-action"]
+          }
+        }
+      }
+    },
+    "comment": {
+      "type": "string",
+      "description": "Additional notes for the appointment"
+    }
+  }
+}

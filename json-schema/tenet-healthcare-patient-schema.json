@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.com/schemas/tenet-healthcare/patient.json",
+  "title": "Tenet Healthcare Patient",
+  "description": "Schema for a Tenet Healthcare patient record based on HL7 FHIR R4 Patient resource",
+  "type": "object",
+  "required": ["resourceType", "id"],
+  "properties": {
+    "resourceType": {
+      "type": "string",
+      "const": "Patient",
+      "description": "FHIR resource type"
+    },
+    "id": {
+      "type": "string",
+      "description": "FHIR resource identifier",
+      "example": "patient-123456"
+    },
+    "meta": {
+      "type": "object",
+      "description": "Resource metadata",
+      "properties": {
+        "versionId": {"type": "string"},
+        "lastUpdated": {"type": "string", "format": "date-time"},
+        "source": {"type": "string"}
+      }
+    },
+    "identifier": {
+      "type": "array",
+      "description": "Patient identifiers (MRN, SSN, insurance ID)",
+      "items": {
+        "type": "object",
+        "properties": {
+          "use": {"type": "string", "enum": ["usual", "official", "temp", "secondary"]},
+          "type": {"type": "object"},
+          "system": {"type": "string", "format": "uri"},
+          "value": {"type": "string"}
+        }
+      }
+    },
+    "active": {
+      "type": "boolean",
+      "description": "Whether the patient record is active",
+      "default": true
+    },
+    "name": {
+      "type": "array",
+      "description": "Patient name(s)",
+      "items": {
+        "type": "object",
+        "properties": {
+          "use": {"type": "string", "enum": ["usual", "official", "nickname"]},
+          "family": {"type": "string"},
+          "given": {"type": "array", "items": {"type": "string"}},
+          "prefix": {"type": "array", "items": {"type": "string"}},
+          "suffix": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "telecom": {
+      "type": "array",
+      "description": "Contact details",
+      "items": {
+        "type": "object",
+        "properties": {
+          "system": {"type": "string", "enum": ["phone", "fax", "email", "pager", "url", "sms"]},
+          "value": {"type": "string"},
+          "use": {"type": "string", "enum": ["home", "work", "mobile"]}
+        }
+      }
+    },
+    "gender": {
+      "type": "string",
+      "description": "Administrative gender",
+      "enum": ["male", "female", "other", "unknown"]
+    },
+    "birthDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Patient date of birth",
+      "example": "1975-04-15"
+    },
+    "address": {
+      "type": "array",
+      "description": "Patient addresses",
+      "items": {
+        "type": "object",
+        "properties": {
+          "use": {"type": "string"},
+          "line": {"type": "array", "items": {"type": "string"}},
+          "city": {"type": "string"},
+          "state": {"type": "string"},
+          "postalCode": {"type": "string"},
+          "country": {"type": "string"}
+        }
+      }
+    },
+    "communication": {
+      "type": "array",
+      "description": "Preferred languages for communication",
+      "items": {
+        "type": "object",
+        "properties": {
+          "language": {"type": "object"},
+          "preferred": {"type": "boolean"}
+        }
+      }
+    },
+    "generalPractitioner": {
+      "type": "array",
+      "description": "Primary care provider references",
+      "items": {
+        "type": "object",
+        "properties": {
+          "reference": {"type": "string"}
+        }
+      }
+    },
+    "managingOrganization": {
+      "type": "object",
+      "description": "Organization managing the patient record",
+      "properties": {
+        "reference": {"type": "string", "example": "Organization/tenet-dallas-medical"},
+        "display": {"type": "string"}
+      }
+    }
+  }
+}

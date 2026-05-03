@@ -1,0 +1,234 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Tenet Healthcare Patient Care"
+  description: "Patient care coordination workflow combining FHIR R4 APIs for patient records, appointment management, clinical data access, and care plan coordination. Used by patient portals, care coordinators, and clinical staff to manage the patient healthcare journey across Tenet Health facilities."
+  tags:
+    - Healthcare
+    - Patient Care
+    - FHIR
+    - Appointment Scheduling
+    - Clinical Data
+    - Care Coordination
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      TENET_FHIR_TOKEN: TENET_FHIR_TOKEN
+
+capability:
+  consumes:
+    - import: tenet-fhir
+      location: ./shared/tenet-fhir.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: patient-care-api
+      description: "Unified REST API for Tenet Healthcare patient care coordination."
+      resources:
+        - path: /v1/patients/{patientId}
+          name: patient
+          description: "Patient demographic record"
+          operations:
+            - method: GET
+              name: get-patient
+              description: "Get patient demographic and administrative information"
+              call: "tenet-fhir.get-patient"
+              with:
+                id: "rest.patientId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/patients/{patientId}/appointments
+          name: appointments
+          description: "Patient appointments"
+          operations:
+            - method: GET
+              name: list-appointments
+              description: "List appointments for a patient"
+              call: "tenet-fhir.list-patient-appointments"
+              with:
+                id: "rest.patientId"
+                status: "rest.status"
+                date: "rest.date"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/appointments
+          name: appointment-search
+          description: "Appointment search"
+          operations:
+            - method: GET
+              name: search-appointments
+              description: "Search appointments by patient, date, or practitioner"
+              call: "tenet-fhir.search-appointments"
+              with:
+                patient: "rest.patient"
+                status: "rest.status"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/patients/{patientId}/observations
+          name: observations
+          description: "Clinical observations and test results"
+          operations:
+            - method: GET
+              name: list-observations
+              description: "List clinical observations (vitals, labs, imaging)"
+              call: "tenet-fhir.list-patient-observations"
+              with:
+                id: "rest.patientId"
+                category: "rest.category"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/patients/{patientId}/conditions
+          name: conditions
+          description: "Patient diagnoses and health conditions"
+          operations:
+            - method: GET
+              name: list-conditions
+              description: "List patient diagnoses and health conditions"
+              call: "tenet-fhir.list-patient-conditions"
+              with:
+                id: "rest.patientId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/patients/{patientId}/medications
+          name: medications
+          description: "Patient medication prescriptions"
+          operations:
+            - method: GET
+              name: list-medications
+              description: "List patient medication prescriptions"
+              call: "tenet-fhir.list-patient-medications"
+              with:
+                id: "rest.patientId"
+                status: "rest.status"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/patients/{patientId}/documents
+          name: documents
+          description: "Clinical document references"
+          operations:
+            - method: GET
+              name: list-documents
+              description: "List clinical documents (notes, reports, summaries)"
+              call: "tenet-fhir.list-patient-documents"
+              with:
+                id: "rest.patientId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: patient-care-mcp
+      transport: http
+      description: "MCP server for AI-assisted patient care coordination at Tenet Health."
+      tools:
+        - name: get-patient
+          description: "Get a patient's demographic and administrative information"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "tenet-fhir.get-patient"
+          with:
+            id: "tools.patientId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-patient-appointments
+          description: "List scheduled appointments for a patient, with optional status and date filters"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "tenet-fhir.list-patient-appointments"
+          with:
+            id: "tools.patientId"
+            status: "tools.status"
+            date: "tools.date"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: search-appointments
+          description: "Search appointments across the Tenet Health network by patient, date, or facility"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "tenet-fhir.search-appointments"
+          with:
+            patient: "tools.patient"
+            status: "tools.status"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-vital-signs
+          description: "Get vital sign observations for a patient (blood pressure, heart rate, temperature, etc.)"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "tenet-fhir.list-patient-observations"
+          with:
+            id: "tools.patientId"
+            category: "vital-signs"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-lab-results
+          description: "Get laboratory test results for a patient"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "tenet-fhir.list-patient-observations"
+          with:
+            id: "tools.patientId"
+            category: "laboratory"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-patient-conditions
+          description: "List active diagnoses and health conditions for a patient"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "tenet-fhir.list-patient-conditions"
+          with:
+            id: "tools.patientId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-patient-medications
+          description: "List current medication prescriptions for a patient"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "tenet-fhir.list-patient-medications"
+          with:
+            id: "tools.patientId"
+            status: "active"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-clinical-documents
+          description: "List clinical documents including discharge summaries, notes, and radiology reports"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "tenet-fhir.list-patient-documents"
+          with:
+            id: "tools.patientId"
+          outputParameters:
+            - type: object
+              mapping: "$."
