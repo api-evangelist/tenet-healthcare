@@ -93,7 +93,7 @@ common:
     url: https://www.coniferhealth.com
   - type: USPI
     url: https://www.uspi.com
-  - type: JSON-LD
+  - type: JSONLD
     url: json-ld/tenet-healthcare-context.jsonld
   - type: JSONSchema
     url: json-schema/tenet-healthcare-patient-schema.json
