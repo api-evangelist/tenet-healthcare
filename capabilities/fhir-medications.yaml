@@ -1,0 +1,86 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Tenet Healthcare FHIR R4 Patient API — Medications
+  description: 'Tenet Healthcare FHIR R4 Patient API — Medications. 1 operations. Lead operation: List Patient Medications.
+    Self-contained Naftiko capability covering one Tenet Healthcare business surface.'
+  tags:
+  - Tenet Healthcare
+  - Medications
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TENET_HEALTHCARE_API_KEY: TENET_HEALTHCARE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: fhir-medications
+    baseUri: https://api.tenethealth.com/fhir/r4
+    description: Tenet Healthcare FHIR R4 Patient API — Medications business capability. Self-contained, no shared references.
+    resources:
+    - name: Patient-id-MedicationRequest
+      path: /Patient/{id}/MedicationRequest
+      operations:
+      - name: listpatientmedications
+        method: GET
+        description: List Patient Medications
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: Patient FHIR resource ID
+          required: true
+        - name: status
+          in: query
+          type: string
+          description: Medication request status (active, completed, cancelled)
+    authentication:
+      type: bearer
+      token: '{{env.TENET_HEALTHCARE_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: fhir-medications-rest
+    port: 8080
+    description: REST adapter for Tenet Healthcare FHIR R4 Patient API — Medications. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/patient/{id}/medicationrequest
+      name: patient-id-medicationrequest
+      description: REST surface for Patient-id-MedicationRequest.
+      operations:
+      - method: GET
+        name: listpatientmedications
+        description: List Patient Medications
+        call: fhir-medications.listpatientmedications
+        with:
+          id: rest.id
+          status: rest.status
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: fhir-medications-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Tenet Healthcare FHIR R4 Patient API — Medications. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: list-patient-medications
+      description: List Patient Medications
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: fhir-medications.listpatientmedications
+      with:
+        id: tools.id
+        status: tools.status
+      outputParameters:
+      - type: object
+        mapping: $.

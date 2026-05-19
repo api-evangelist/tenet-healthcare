@@ -1,0 +1,151 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Tenet Healthcare FHIR R4 Patient API — Appointments
+  description: 'Tenet Healthcare FHIR R4 Patient API — Appointments. 2 operations. Lead operation: Search Appointments. Self-contained
+    Naftiko capability covering one Tenet Healthcare business surface.'
+  tags:
+  - Tenet Healthcare
+  - Appointments
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    TENET_HEALTHCARE_API_KEY: TENET_HEALTHCARE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: fhir-appointments
+    baseUri: https://api.tenethealth.com/fhir/r4
+    description: Tenet Healthcare FHIR R4 Patient API — Appointments business capability. Self-contained, no shared references.
+    resources:
+    - name: Appointment
+      path: /Appointment
+      operations:
+      - name: searchappointments
+        method: GET
+        description: Search Appointments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: patient
+          in: query
+          type: string
+          description: Patient reference (e.g., Patient/12345)
+        - name: date
+          in: query
+          type: string
+          description: Appointment date filter
+        - name: status
+          in: query
+          type: string
+          description: Appointment status filter
+        - name: _count
+          in: query
+          type: integer
+          description: Maximum results per page
+    - name: Patient-id-Appointment
+      path: /Patient/{id}/Appointment
+      operations:
+      - name: listpatientappointments
+        method: GET
+        description: List Patient Appointments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: Patient FHIR resource ID
+          required: true
+        - name: date
+          in: query
+          type: string
+          description: Filter appointments by date (YYYY-MM-DD)
+        - name: status
+          in: query
+          type: string
+          description: Filter by appointment status
+    authentication:
+      type: bearer
+      token: '{{env.TENET_HEALTHCARE_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: fhir-appointments-rest
+    port: 8080
+    description: REST adapter for Tenet Healthcare FHIR R4 Patient API — Appointments. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/appointment
+      name: appointment
+      description: REST surface for Appointment.
+      operations:
+      - method: GET
+        name: searchappointments
+        description: Search Appointments
+        call: fhir-appointments.searchappointments
+        with:
+          patient: rest.patient
+          date: rest.date
+          status: rest.status
+          _count: rest._count
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/patient/{id}/appointment
+      name: patient-id-appointment
+      description: REST surface for Patient-id-Appointment.
+      operations:
+      - method: GET
+        name: listpatientappointments
+        description: List Patient Appointments
+        call: fhir-appointments.listpatientappointments
+        with:
+          id: rest.id
+          date: rest.date
+          status: rest.status
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: fhir-appointments-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Tenet Healthcare FHIR R4 Patient API — Appointments. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: search-appointments
+      description: Search Appointments
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: fhir-appointments.searchappointments
+      with:
+        patient: tools.patient
+        date: tools.date
+        status: tools.status
+        _count: tools._count
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-patient-appointments
+      description: List Patient Appointments
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: fhir-appointments.listpatientappointments
+      with:
+        id: tools.id
+        date: tools.date
+        status: tools.status
+      outputParameters:
+      - type: object
+        mapping: $.
