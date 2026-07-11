@@ -1,0 +1,48 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/tenet-healthcare-fhir-openapi.yml
+schemes:
+- name: smartOnFhir
+  source: openapi/tenet-healthcare-fhir-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.tenethealth.com/oauth2/authorize
+    tokenUrl: https://auth.tenethealth.com/oauth2/token
+  description: SMART on FHIR OAuth 2.0 authorization
+scopes:
+- scope: patient/Appointment.read
+  description: Read patient appointments
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/tenet-healthcare-fhir-openapi.yml
+- scope: patient/Condition.read
+  description: Read patient conditions
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/tenet-healthcare-fhir-openapi.yml
+- scope: patient/DocumentReference.read
+  description: Read document references
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/tenet-healthcare-fhir-openapi.yml
+- scope: patient/MedicationRequest.read
+  description: Read medication requests
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/tenet-healthcare-fhir-openapi.yml
+- scope: patient/Observation.read
+  description: Read clinical observations
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/tenet-healthcare-fhir-openapi.yml
+- scope: patient/Patient.read
+  description: Read patient demographic data
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/tenet-healthcare-fhir-openapi.yml
