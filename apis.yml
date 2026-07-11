@@ -71,6 +71,8 @@ apis:
       - type: OpenAPI
         url: openapi/tenet-healthcare-fhir-openapi.yml
 common:
+  - type: DomainSecurity
+    url: security/tenet-healthcare-domain-security.yml
   - type: Authentication
     url: authentication/tenet-healthcare-authentication.yml
   - type: OAuthScopes

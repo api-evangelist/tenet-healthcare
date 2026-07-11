@@ -1,0 +1,29 @@
+generated: '2026-07-11'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: www.tenethealth.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct  7 16:19:13 2026 GMT
+  hsts: true
+  hsts_max_age: 10368000
+- host: www.tenetcorporate.com
+  https: false
+- host: www.coniferhealth.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Aug 12 12:44:18 2026 GMT
+  hsts: null
+domains:
+- domain: tenethealth.com
+  dnssec: true
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: reject
+- domain: tenetcorporate.com
+  dnssec: false
+  caa: []
+  spf: false
+  dmarc: false
