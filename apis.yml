@@ -71,6 +71,8 @@ apis:
       - type: OpenAPI
         url: openapi/tenet-healthcare-fhir-openapi.yml
 common:
+  - type: AgenticAccess
+    url: agentic-access/tenet-healthcare-agentic-access.yml
   - type: DomainSecurity
     url: security/tenet-healthcare-domain-security.yml
   - type: Authentication
