@@ -1,0 +1,114 @@
+openapi: 3.1.0
+info:
+  title: Tenet Healthcare FHIR R4 Patient Appointments Medications API
+  description: HL7 FHIR R4 compliant patient API for Tenet Health hospital network enabling access to patient demographics, appointments, clinical observations, conditions, medications, allergies, care plans, and document references. Supports patient portal integration, care team communication, and interoperability with electronic health record systems. Implements SMART on FHIR for secure authorization.
+  version: R4
+  contact:
+    name: Tenet Health Digital Health
+    url: https://www.tenethealth.com/patients
+  license:
+    name: HL7 FHIR Standard
+    url: https://hl7.org/fhir/R4/license.html
+servers:
+- url: https://api.tenethealth.com/fhir/r4
+  description: Tenet Health FHIR R4 - Production
+- url: https://sandbox.tenethealth.com/fhir/r4
+  description: Tenet Health FHIR R4 - Sandbox
+security:
+- smartOnFhir:
+  - patient/Patient.read
+  - patient/Appointment.read
+  - patient/Observation.read
+tags:
+- name: Medications
+  description: Medication prescriptions and administration records (FHIR MedicationRequest resource)
+paths:
+  /Patient/{id}/MedicationRequest:
+    get:
+      operationId: listPatientMedications
+      summary: List Patient Medications
+      description: Retrieve medication requests (prescriptions) for a patient with drug name, dosage, frequency, prescriber, and prescription status.
+      tags:
+      - Medications
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Patient FHIR resource ID
+        schema:
+          type: string
+      - name: status
+        in: query
+        required: false
+        description: Medication request status (active, completed, cancelled)
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Medication requests as FHIR Bundle
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/Bundle'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Patient not found
+components:
+  schemas:
+    Bundle:
+      type: object
+      description: FHIR R4 Bundle resource containing search results
+      properties:
+        resourceType:
+          type: string
+          enum:
+          - Bundle
+        type:
+          type: string
+          enum:
+          - searchset
+          - collection
+        total:
+          type: integer
+          description: Total matching resources
+        link:
+          type: array
+          description: Pagination links
+          items:
+            type: object
+            properties:
+              relation:
+                type: string
+              url:
+                type: string
+        entry:
+          type: array
+          description: Bundle entries
+          items:
+            type: object
+            properties:
+              fullUrl:
+                type: string
+              resource:
+                type: object
+              search:
+                type: object
+  securitySchemes:
+    smartOnFhir:
+      type: oauth2
+      description: SMART on FHIR OAuth 2.0 authorization
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.tenethealth.com/oauth2/authorize
+          tokenUrl: https://auth.tenethealth.com/oauth2/token
+          scopes:
+            patient/Patient.read: Read patient demographic data
+            patient/Appointment.read: Read patient appointments
+            patient/Observation.read: Read clinical observations
+            patient/Condition.read: Read patient conditions
+            patient/MedicationRequest.read: Read medication requests
+            patient/DocumentReference.read: Read document references
+externalDocs:
+  description: HL7 FHIR R4 Documentation
+  url: https://hl7.org/fhir/R4/

@@ -1,0 +1,121 @@
+openapi: 3.1.0
+info:
+  title: Tenet Healthcare FHIR R4 Patient Appointments Patients API
+  description: HL7 FHIR R4 compliant patient API for Tenet Health hospital network enabling access to patient demographics, appointments, clinical observations, conditions, medications, allergies, care plans, and document references. Supports patient portal integration, care team communication, and interoperability with electronic health record systems. Implements SMART on FHIR for secure authorization.
+  version: R4
+  contact:
+    name: Tenet Health Digital Health
+    url: https://www.tenethealth.com/patients
+  license:
+    name: HL7 FHIR Standard
+    url: https://hl7.org/fhir/R4/license.html
+servers:
+- url: https://api.tenethealth.com/fhir/r4
+  description: Tenet Health FHIR R4 - Production
+- url: https://sandbox.tenethealth.com/fhir/r4
+  description: Tenet Health FHIR R4 - Sandbox
+security:
+- smartOnFhir:
+  - patient/Patient.read
+  - patient/Appointment.read
+  - patient/Observation.read
+tags:
+- name: Patients
+  description: Patient demographic and administrative information (FHIR Patient resource)
+paths:
+  /Patient/{id}:
+    get:
+      operationId: getPatient
+      summary: Get Patient
+      description: Retrieve a FHIR Patient resource by patient identifier. Returns patient demographic information including name, date of birth, gender, contact information, and insurance details.
+      tags:
+      - Patients
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Patient FHIR resource ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Patient resource returned
+          content:
+            application/fhir+json:
+              schema:
+                $ref: '#/components/schemas/Patient'
+        '401':
+          description: Unauthorized - invalid SMART on FHIR token
+        '403':
+          description: Forbidden - insufficient scope
+        '404':
+          description: Patient not found
+components:
+  schemas:
+    Patient:
+      type: object
+      description: FHIR R4 Patient resource
+      properties:
+        resourceType:
+          type: string
+          enum:
+          - Patient
+        id:
+          type: string
+          description: FHIR resource ID
+        meta:
+          type: object
+          description: Resource metadata
+        name:
+          type: array
+          description: Patient names (legal, preferred, etc.)
+          items:
+            type: object
+            properties:
+              use:
+                type: string
+              family:
+                type: string
+              given:
+                type: array
+                items:
+                  type: string
+        birthDate:
+          type: string
+          format: date
+          description: Patient date of birth
+        gender:
+          type: string
+          enum:
+          - male
+          - female
+          - other
+          - unknown
+        telecom:
+          type: array
+          description: Contact information
+          items:
+            type: object
+        address:
+          type: array
+          description: Patient addresses
+          items:
+            type: object
+  securitySchemes:
+    smartOnFhir:
+      type: oauth2
+      description: SMART on FHIR OAuth 2.0 authorization
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.tenethealth.com/oauth2/authorize
+          tokenUrl: https://auth.tenethealth.com/oauth2/token
+          scopes:
+            patient/Patient.read: Read patient demographic data
+            patient/Appointment.read: Read patient appointments
+            patient/Observation.read: Read clinical observations
+            patient/Condition.read: Read patient conditions
+            patient/MedicationRequest.read: Read medication requests
+            patient/DocumentReference.read: Read document references
+externalDocs:
+  description: HL7 FHIR R4 Documentation
+  url: https://hl7.org/fhir/R4/
