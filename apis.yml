@@ -1,3 +1,17 @@
+accessModel:
+  pricing: enterprise
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Enterprise · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/tenet-healthcare.png
 name: Tenet Healthcare
 description: >-
   Tenet Healthcare is a diversified healthcare services company and Fortune 500 organization operating regionally
@@ -15,61 +29,126 @@ tags:
   - Revenue Cycle Management
   - Fortune 500
 apis:
-  - name: Conifer Health Solutions Revenue Cycle API
-    description: >-
-      Revenue cycle management API from Conifer Health Solutions, a Tenet Healthcare subsidiary providing end-to-end RCM
-      services including patient access, health information management, patient financial services, and clinical revenue
-      integrity for hospitals and health systems.
-    humanURL: https://www.coniferhealth.com/
-    baseURL: https://api.coniferhealth.com
-    tags:
-      - Revenue Cycle Management
-      - Healthcare Finance
-      - Patient Access
-      - Claims Management
-      - Healthcare
-    properties:
-      - type: Website
-        url: https://www.coniferhealth.com/
-      - type: Documentation
-        url: https://www.coniferhealth.com/services/
-  - name: USPI Ambulatory Surgery Center API
-    description: >-
-      United Surgical Partners International (USPI) integration APIs for ambulatory surgery center scheduling, patient
-      registration, procedure management, and clinical data exchange. USPI operates over 600 ambulatory surgery centers
-      and surgical hospitals across the United States.
-    humanURL: https://www.uspi.com/
-    baseURL: https://api.uspi.com
-    tags:
-      - Ambulatory Surgery Centers
-      - Surgical Scheduling
-      - Patient Registration
-      - Healthcare
-    properties:
-      - type: Website
-        url: https://www.uspi.com/
-      - type: Documentation
-        url: https://www.uspi.com/for-physicians/
-  - name: Tenet Health Patient Portal API
-    description: >-
-      Patient-facing digital health API enabling access to medical records, appointment scheduling, test results, care
-      team communications, and bill payment across Tenet Health hospital network. Integrates with MyChart and other
-      patient portal platforms. HL7 FHIR R4 compatible.
-    humanURL: https://www.tenethealth.com/patients
-    baseURL: https://api.tenethealth.com/patient
-    tags:
-      - Patient Portal
-      - Medical Records
-      - Appointment Scheduling
-      - FHIR
-      - Healthcare
-    properties:
-      - type: Website
-        url: https://www.tenethealth.com/patients
-      - type: FHIR Standard
-        url: https://hl7.org/fhir/R4/
-      - type: OpenAPI
-        url: openapi/tenet-healthcare-fhir-openapi.yml
+- name: Conifer Health Solutions Revenue Cycle API
+  description: >-
+    Revenue cycle management API from Conifer Health Solutions, a Tenet Healthcare subsidiary providing
+    end-to-end RCM services including patient access, health information management, patient financial
+    services, and clinical revenue integrity for hospitals and health systems.
+  humanURL: https://www.coniferhealth.com/
+  baseURL: https://api.coniferhealth.com
+  tags:
+  - Revenue Cycle Management
+  - Healthcare Finance
+  - Patient Access
+  - Claims Management
+  - Healthcare
+  properties:
+  - type: Website
+    url: https://www.coniferhealth.com/
+  - type: Documentation
+    url: https://www.coniferhealth.com/services/
+- name: USPI Ambulatory Surgery Center API
+  description: >-
+    United Surgical Partners International (USPI) integration APIs for ambulatory surgery center scheduling,
+    patient registration, procedure management, and clinical data exchange. USPI operates over 600 ambulatory
+    surgery centers and surgical hospitals across the United States.
+  humanURL: https://www.uspi.com/
+  baseURL: https://api.uspi.com
+  tags:
+  - Ambulatory Surgery Centers
+  - Surgical Scheduling
+  - Patient Registration
+  - Healthcare
+  properties:
+  - type: Website
+    url: https://www.uspi.com/
+  - type: Documentation
+    url: https://www.uspi.com/for-physicians/
+- aid: tenet-healthcare:tenet-healthcare-appointments-api
+  name: Tenet Healthcare Appointments API
+  description: Healthcare appointment scheduling and management (FHIR Appointment resource)
+  humanURL: https://www.coniferhealth.com/
+  baseURL: https://api.coniferhealth.com
+  tags:
+  - Appointments
+  properties:
+  - type: OpenAPI
+    url: openapi/tenet-healthcare-appointments-api-openapi.yml
+  - type: Website
+    url: https://www.tenethealth.com/patients
+  - type: FHIR Standard
+    url: https://hl7.org/fhir/R4/
+- aid: tenet-healthcare:tenet-healthcare-conditions-api
+  name: Tenet Healthcare Conditions API
+  description: Patient diagnoses, problems, and health concerns (FHIR Condition resource)
+  humanURL: https://www.coniferhealth.com/
+  baseURL: https://api.coniferhealth.com
+  tags:
+  - Conditions
+  properties:
+  - type: OpenAPI
+    url: openapi/tenet-healthcare-conditions-api-openapi.yml
+  - type: Website
+    url: https://www.tenethealth.com/patients
+  - type: FHIR Standard
+    url: https://hl7.org/fhir/R4/
+- aid: tenet-healthcare:tenet-healthcare-documents-api
+  name: Tenet Healthcare Documents API
+  description: Clinical document references and summaries (FHIR DocumentReference resource)
+  humanURL: https://www.coniferhealth.com/
+  baseURL: https://api.coniferhealth.com
+  tags:
+  - Documents
+  properties:
+  - type: OpenAPI
+    url: openapi/tenet-healthcare-documents-api-openapi.yml
+  - type: Website
+    url: https://www.tenethealth.com/patients
+  - type: FHIR Standard
+    url: https://hl7.org/fhir/R4/
+- aid: tenet-healthcare:tenet-healthcare-medications-api
+  name: Tenet Healthcare Medications API
+  description: Medication prescriptions and administration records (FHIR MedicationRequest resource)
+  humanURL: https://www.coniferhealth.com/
+  baseURL: https://api.coniferhealth.com
+  tags:
+  - Medications
+  properties:
+  - type: OpenAPI
+    url: openapi/tenet-healthcare-medications-api-openapi.yml
+  - type: Website
+    url: https://www.tenethealth.com/patients
+  - type: FHIR Standard
+    url: https://hl7.org/fhir/R4/
+- aid: tenet-healthcare:tenet-healthcare-observations-api
+  name: Tenet Healthcare Observations API
+  description: >-
+    Clinical observations including vital signs, lab results, and assessments (FHIR Observation resource)
+  humanURL: https://www.coniferhealth.com/
+  baseURL: https://api.coniferhealth.com
+  tags:
+  - Observations
+  properties:
+  - type: OpenAPI
+    url: openapi/tenet-healthcare-observations-api-openapi.yml
+  - type: Website
+    url: https://www.tenethealth.com/patients
+  - type: FHIR Standard
+    url: https://hl7.org/fhir/R4/
+- aid: tenet-healthcare:tenet-healthcare-patients-api
+  name: Tenet Healthcare Patients API
+  description: Patient demographic and administrative information (FHIR Patient resource)
+  humanURL: https://www.coniferhealth.com/
+  baseURL: https://api.coniferhealth.com
+  tags:
+  - Patients
+  properties:
+  - type: OpenAPI
+    url: openapi/tenet-healthcare-patients-api-openapi.yml
+  - type: Website
+    url: https://www.tenethealth.com/patients
+  - type: FHIR Standard
+    url: https://hl7.org/fhir/R4/
 common:
   - type: AgenticAccess
     url: agentic-access/tenet-healthcare-agentic-access.yml
