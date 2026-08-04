@@ -1,0 +1,24 @@
+{
+  "provider": "tenet-healthcare",
+  "sources": [
+    "tenet-healthcare-appointments-api-openapi.yml",
+    "tenet-healthcare-conditions-api-openapi.yml",
+    "tenet-healthcare-documents-api-openapi.yml",
+    "tenet-healthcare-medications-api-openapi.yml",
+    "tenet-healthcare-observations-api-openapi.yml",
+    "tenet-healthcare-patients-api-openapi.yml"
+  ],
+  "outputs": [
+    "tenet-healthcare-appointments-api-openapi.yml",
+    "tenet-healthcare-conditions-api-openapi.yml",
+    "tenet-healthcare-documents-api-openapi.yml",
+    "tenet-healthcare-medications-api-openapi.yml",
+    "tenet-healthcare-observations-api-openapi.yml",
+    "tenet-healthcare-patients-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
