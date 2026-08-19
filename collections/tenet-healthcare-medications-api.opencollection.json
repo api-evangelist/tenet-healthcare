@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tenet Healthcare FHIR R4 Patient Appointments Medications API",
+    "version": "R4"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://auth.tenethealth.com/oauth2/authorize",
+      "accessTokenUrl": "https://auth.tenethealth.com/oauth2/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Medications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Patient Medications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tenethealth.com/fhir/r4/Patient/:id/MedicationRequest",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Patient FHIR resource ID"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Medication request status (active, completed, cancelled)"
+              }
+            ]
+          },
+          "docs": "Retrieve medication requests (prescriptions) for a patient with drug name, dosage, frequency, prescriber, and prescription status."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

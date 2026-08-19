@@ -1,0 +1,98 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tenet Healthcare FHIR R4 Patient Appointments API",
+    "version": "R4"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://auth.tenethealth.com/oauth2/authorize",
+      "accessTokenUrl": "https://auth.tenethealth.com/oauth2/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Appointments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Patient Appointments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tenethealth.com/fhir/r4/Patient/:id/Appointment",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Patient FHIR resource ID"
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "Filter appointments by date (YYYY-MM-DD)"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by appointment status"
+              }
+            ]
+          },
+          "docs": "Retrieve all appointments for a specific patient including scheduled, pending, and completed appointments. Returns appointment date, time, provider, location, and appointment type."
+        },
+        {
+          "info": {
+            "name": "Search Appointments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tenethealth.com/fhir/r4/Appointment",
+            "params": [
+              {
+                "name": "patient",
+                "value": "",
+                "type": "query",
+                "description": "Patient reference (e.g., Patient/12345)"
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "Appointment date filter"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Appointment status filter"
+              },
+              {
+                "name": "_count",
+                "value": "",
+                "type": "query",
+                "description": "Maximum results per page"
+              }
+            ]
+          },
+          "docs": "Search for appointments using FHIR search parameters. Supports filtering by patient, date range, practitioner, location, and appointment type."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tenet Healthcare FHIR R4 Patient Appointments Documents API",
+    "version": "R4"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://auth.tenethealth.com/oauth2/authorize",
+      "accessTokenUrl": "https://auth.tenethealth.com/oauth2/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Documents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Patient Documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tenethealth.com/fhir/r4/Patient/:id/DocumentReference",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Patient FHIR resource ID"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Document type LOINC code"
+              }
+            ]
+          },
+          "docs": "Retrieve document references for a patient including clinical notes, discharge summaries, radiology reports, and consent documents. Returns document metadata and retrieval links."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

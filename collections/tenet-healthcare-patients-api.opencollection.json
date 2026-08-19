@@ -1,0 +1,49 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tenet Healthcare FHIR R4 Patient Appointments Patients API",
+    "version": "R4"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://auth.tenethealth.com/oauth2/authorize",
+      "accessTokenUrl": "https://auth.tenethealth.com/oauth2/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Patients",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Patient",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tenethealth.com/fhir/r4/Patient/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Patient FHIR resource ID"
+              }
+            ]
+          },
+          "docs": "Retrieve a FHIR Patient resource by patient identifier. Returns patient demographic information including name, date of birth, gender, contact information, and insurance details."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

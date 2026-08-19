@@ -1,0 +1,67 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tenet Healthcare FHIR R4 Patient Appointments Observations API",
+    "version": "R4"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://auth.tenethealth.com/oauth2/authorize",
+      "accessTokenUrl": "https://auth.tenethealth.com/oauth2/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Observations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Patient Observations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tenethealth.com/fhir/r4/Patient/:id/Observation",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Patient FHIR resource ID"
+              },
+              {
+                "name": "category",
+                "value": "",
+                "type": "query",
+                "description": "Observation category (vital-signs, laboratory, imaging, survey)"
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "Date range filter"
+              },
+              {
+                "name": "_count",
+                "value": "",
+                "type": "query",
+                "description": "Maximum results per page"
+              }
+            ]
+          },
+          "docs": "Retrieve clinical observations for a patient including vital signs, laboratory results, imaging results, and clinical assessments. Supports filtering by observation category and date range."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
