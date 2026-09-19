@@ -123,6 +123,8 @@ apis:
   humanURL: https://www.coniferhealth.com/
   baseURL: https://api.coniferhealth.com
   tags:
+  - Medication
+  tags_raw:
   - Medications
   properties:
   - type: OpenAPI
