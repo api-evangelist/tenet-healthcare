@@ -1,7 +1,9 @@
 ---
 title: Tenet Announces Accretive Transaction and Previews ...
 url: https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Announces-Accretive-Transaction-and-Previews-Strong-2025-Results/default.aspx
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"Tenet Healthcare" press release artificial intelligence'
 position: 4
 source: serpapi-google

@@ -1,12 +1,7 @@
 {
   "provider": "tenet-healthcare",
   "sources": [
-    "tenet-healthcare-appointments-api-openapi.yml",
-    "tenet-healthcare-conditions-api-openapi.yml",
-    "tenet-healthcare-documents-api-openapi.yml",
-    "tenet-healthcare-medications-api-openapi.yml",
-    "tenet-healthcare-observations-api-openapi.yml",
-    "tenet-healthcare-patients-api-openapi.yml"
+    "_original/tenet-healthcare-fhir-openapi.yml"
   ],
   "outputs": [
     "tenet-healthcare-appointments-api-openapi.yml",
@@ -19,6 +14,17 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "tenet-healthcare-fhir-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "tenet-healthcare-appointments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tenet-healthcare-conditions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tenet-healthcare-documents-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tenet-healthcare-medications-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tenet-healthcare-observations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tenet-healthcare-patients-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

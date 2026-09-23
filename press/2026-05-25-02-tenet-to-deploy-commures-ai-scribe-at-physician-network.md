@@ -1,7 +1,9 @@
 ---
 title: Tenet to deploy Commure's AI scribe at physician network
 url: https://www.healthcaredive.com/news/tenet-deploys-commure-ai-scribe-physician-network/733663/
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"Tenet Healthcare" press release artificial intelligence'
 position: 2
 source: serpapi-google

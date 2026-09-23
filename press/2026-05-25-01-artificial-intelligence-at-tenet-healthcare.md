@@ -1,7 +1,9 @@
 ---
 title: Artificial Intelligence at Tenet Healthcare
 url: https://emerj.com/artificial-intelligence-at-tenet-healthcare/
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"Tenet Healthcare" press release artificial intelligence'
 position: 1
 source: serpapi-google
