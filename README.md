@@ -1,4 +1,4 @@
-# Tenet Healthcare (tenet-healthcare)
+# Tenet Healthcare
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,108 +66,172 @@
 
 Tenet Healthcare is a diversified healthcare services company and Fortune 500 organization operating regionally focused, integrated healthcare delivery networks. The company operates acute care hospitals, ambulatory surgery centers (ASCs), and physician practices across the United States through United Surgical Partners International (USPI) and Tenet Health. Tenet also provides revenue cycle management services through Conifer Health Solutions.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/tenet-healthcare/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/tenet-healthcare/refs/heads/main/apis.yml)
+**Areas:** Healthcare · Hospitals · Ambulatory Surgery Centers · Revenue Cycle Management · Fortune 500
 
-## Tags
+## Tenet Healthcare on APIs.io
 
-- Healthcare
-- Hospitals
-- Ambulatory Surgery Centers
-- Revenue Cycle Management
-- Fortune 500
+Everything profiled for Tenet Healthcare is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/tenet-healthcare/](https://apis.io/providers/tenet-healthcare/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (8)
 
-- **Created:** 2026-03-21
-- **Modified:** 2026-05-19
+- [Conifer Health Solutions Revenue Cycle API](https://apis.io/apis/tenet-healthcare/conifer-health-solutions-revenue-cycle-api/) — Revenue cycle management API from Conifer Health Solutions, a Tenet Healthcare subsidiary providing end-to-end RCM services including patient access, health…
+- [USPI Ambulatory Surgery Center API](https://apis.io/apis/tenet-healthcare/uspi-ambulatory-surgery-center-api/) — United Surgical Partners International (USPI) integration APIs for ambulatory surgery center scheduling, patient registration, procedure management, and…
+- [Tenet Healthcare Appointments API](https://apis.io/apis/tenet-healthcare/tenet-healthcare-appointments-api/) — Healthcare appointment scheduling and management (FHIR Appointment resource)
+- [Tenet Healthcare Conditions API](https://apis.io/apis/tenet-healthcare/tenet-healthcare-conditions-api/) — Patient diagnoses, problems, and health concerns (FHIR Condition resource)
+- [Tenet Healthcare Documents API](https://apis.io/apis/tenet-healthcare/tenet-healthcare-documents-api/) — Clinical document references and summaries (FHIR DocumentReference resource)
+- [Tenet Healthcare Medications API](https://apis.io/apis/tenet-healthcare/tenet-healthcare-medications-api/) — Medication prescriptions and administration records (FHIR MedicationRequest resource)
+- [Tenet Healthcare Observations API](https://apis.io/apis/tenet-healthcare/tenet-healthcare-observations-api/) — Clinical observations including vital signs, lab results, and assessments (FHIR Observation resource)
+- [Tenet Healthcare Patients API](https://apis.io/apis/tenet-healthcare/tenet-healthcare-patients-api/) — Patient demographic and administrative information (FHIR Patient resource)
 
-## APIs
+### Published properties
 
-### Conifer Health Solutions Revenue Cycle API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Revenue cycle management API from Conifer Health Solutions, a Tenet Healthcare subsidiary providing end-to-end RCM services including patient access, health information management, patient financial services, and clinical revenue integrity for hospitals and health systems.
+#### Agentic access (1)
 
-- **Human URL:** [https://www.coniferhealth.com/](https://www.coniferhealth.com/)
-- **Base URL:** `https://api.coniferhealth.com`
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Tags
+- [Tenet Healthcare Agentic Access](https://apis.io/agentic-access/tenet-healthcare/tenet-healthcare-agentic-access/)
 
-- Revenue Cycle Management
-- Healthcare Finance
-- Patient Access
-- Claims Management
-- Healthcare
+#### JSON Schema (2)
 
-#### Properties
+The data models the API reads and writes.
 
-- [Website](https://www.coniferhealth.com/)
-- [Documentation](https://www.coniferhealth.com/services/)
-- [Postman Collection](collections/tenet-healthcare-fhir.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/tenet-healthcare-fhir.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Tenet Healthcare Appointment](https://apis.io/schemas/tenet-healthcare/tenet-healthcare-appointment/)
+- [Tenet Healthcare Patient](https://apis.io/schemas/tenet-healthcare/tenet-healthcare-patient/)
 
-### USPI Ambulatory Surgery Center API
+#### JSON Structure (1)
 
-United Surgical Partners International (USPI) integration APIs for ambulatory surgery center scheduling, patient registration, procedure management, and clinical data exchange. USPI operates over 600 ambulatory surgery centers and surgical hospitals across the United States.
+Data models expressed in JSON Structure.
 
-- **Human URL:** [https://www.uspi.com/](https://www.uspi.com/)
-- **Base URL:** `https://api.uspi.com`
+- [Tenet Healthcare Patient Structure](https://apis.io/json-structure/tenet-healthcare/tenet-healthcare-patient-structure/)
 
-#### Tags
+#### JSON-LD (1)
 
-- Ambulatory Surgery Centers
-- Surgical Scheduling
-- Patient Registration
-- Healthcare
+Linked-data contexts for the provider's vocabulary.
 
-#### Properties
+- [Tenet Healthcare Context](https://apis.io/jsonld/tenet-healthcare/tenet-healthcare-context/)
 
-- [Website](https://www.uspi.com/)
-- [Documentation](https://www.uspi.com/for-physicians/)
-- [Postman Collection](collections/tenet-healthcare-fhir.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/tenet-healthcare-fhir.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Vocabulary (1)
 
-### Tenet Health Patient Portal API
+The provider's domain terms, defined.
 
-Patient-facing digital health API enabling access to medical records, appointment scheduling, test results, care team communications, and bill payment across Tenet Health hospital network. Integrates with MyChart and other patient portal platforms. HL7 FHIR R4 compatible.
+- [Tenet Healthcare Vocabulary](https://apis.io/vocabularies/tenet-healthcare/tenet-healthcare-vocabulary/)
 
-- **Human URL:** [https://www.tenethealth.com/patients](https://www.tenethealth.com/patients)
-- **Base URL:** `https://api.tenethealth.com/patient`
+#### Examples (2)
 
-#### Tags
+Example requests and responses.
 
-- Patient Portal
-- Medical Records
-- Appointment Scheduling
-- FHIR
-- Healthcare
+- [Tenet Healthcare Get Patient Example](https://apis.io/examples/tenet-healthcare/tenet-healthcare-get-patient-example/)
+- [Tenet Healthcare List Appointments Example](https://apis.io/examples/tenet-healthcare/tenet-healthcare-list-appointments-example/)
 
-#### Properties
+#### Collections (7)
 
-- [Website](https://www.tenethealth.com/patients)
-- [F H I R  Standard](https://hl7.org/fhir/R4/)
-- [OpenAPI](openapi/tenet-healthcare-fhir-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/tenet-healthcare-fhir.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/tenet-healthcare-fhir.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Postman and Open Collection request collections.
 
-## Common Properties
+- [Tenet Healthcare FHIR R4 Patient Appointments API](https://apis.io/collections/tenet-healthcare/open-tenet-healthcare-appointments-api/)
+- [Tenet Healthcare FHIR R4 Patient Appointments Conditions API](https://apis.io/collections/tenet-healthcare/open-tenet-healthcare-conditions-api/)
+- [Tenet Healthcare FHIR R4 Patient Appointments Documents API](https://apis.io/collections/tenet-healthcare/open-tenet-healthcare-documents-api/)
+- [Tenet Healthcare FHIR R4 Patient API](https://apis.io/collections/tenet-healthcare/open-tenet-healthcare-fhir/)
+- [Tenet Healthcare FHIR R4 Patient Appointments Medications API](https://apis.io/collections/tenet-healthcare/open-tenet-healthcare-medications-api/)
+- [Tenet Healthcare FHIR R4 Patient Appointments Observations API](https://apis.io/collections/tenet-healthcare/open-tenet-healthcare-observations-api/)
+- [Tenet Healthcare FHIR R4 Patient Appointments Patients API](https://apis.io/collections/tenet-healthcare/open-tenet-healthcare-patients-api/)
 
-- [LinkedIn](https://www.linkedin.com/company/tenet-healthcare)
+#### Governance rules (2)
+
+Spectral rulesets for the provider's contracts.
+
+- [Tenet Healthcare — jsonschema rules](https://apis.io/rules/tenet-healthcare/tenet-healthcare-jsonschema-spectral-rules/)
+- [Tenet Healthcare API Rules](https://apis.io/rules/tenet-healthcare/tenet-healthcare-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Tenet Healthcare Authentication](https://apis.io/security/tenet-healthcare/tenet-healthcare-authentication/)
+- [Tenet Healthcare Domain Security](https://apis.io/security/tenet-healthcare/tenet-healthcare-domain-security/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Tenet Healthcare Scopes](https://apis.io/scopes/tenet-healthcare/tenet-healthcare-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Tenet Healthcare Plans Pricing](https://apis.io/plans/tenet-healthcare/tenet-healthcare-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Tenet Healthcare Rate Limits](https://apis.io/rate-limits/tenet-healthcare/tenet-healthcare-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Tenet Healthcare Finops](https://apis.io/finops/tenet-healthcare/tenet-healthcare-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://www.tenethealth.com)
-- [Corporate  Website](https://www.tenetcorporate.com)
-- [Investor  Relations](https://ir.tenethealth.com)
-- [Press  Room](https://www.tenethealth.com/news)
-- [Careers](https://careers.tenethealth.com)
-- [Conifer  Health  Solutions](https://www.coniferhealth.com)
-- [U S P I](https://www.uspi.com)
-- [JSON-LD](json-ld/tenet-healthcare-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [JSON Schema](json-schema/tenet-healthcare-patient-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/tenet-healthcare-appointment-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Structure](json-structure/tenet-healthcare-patient-structure.json)
-- [Spectral Rules](rules/tenet-healthcare-rules.yml)
-- [Vocabulary](vocabulary/tenet-healthcare-vocabulary.yml)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
-**URL:** https://apievangelist.com
+**Kin Score 32.1** — thin · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 55.9 |
+| Contract governance | 27.3 |
+| Operational transparency | 5.3 |
+| Developer ergonomics | 21.4 |
+| Access clarity | 5.3 |
+
+**Agent readiness 28.4** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | na |
+| MCP Server | — |
+| Auth Clarity | negotiable (partial credit) |
+| Idempotency | na |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | na |
+| Delegated Identity | documented (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 26.6** — Health
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/tenet-healthcare/](https://apis.io/providers/tenet-healthcare/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Tenet Healthcare: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/tenet-healthcare/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
